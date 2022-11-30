@@ -83,7 +83,7 @@ def main():
             print("\nDu skal vælge en positiv hastighed")
         elif valg_hastighed == 0:
             print("\nDin hastighed skal være større end 0")
-        elif valg_vinkel >= 0:
+        elif valg_hastighed >= 0:
             HASTIGHED += valg_hastighed
             valg_af_hastighed_faerdig = True
         else:
