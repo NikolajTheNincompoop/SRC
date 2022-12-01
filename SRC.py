@@ -30,7 +30,8 @@ def linje(tid, stationaert_punkt, retningsvektor):
 def tegn(delta_tid):
     arcade.start_render()
     # Beregner punkt på linjen
-    x, y = linje(tegn.tid/60, (0,0), (starthastighed * math.cos(startvinkel), starthastighed * math.sin(startvinkel)))
+    x, y = linje(tegn.tid/60, (0,0), (starthastighed * math.cos(startvinkel_radianer),
+                                      starthastighed * math.sin(startvinkel_radianer)))
     # Tegner punktet på linjen
     arcade.draw_circle_filled(x, y, 5, COLOR_KASSE)
     # Fjerner det første punkt i sporet, hvis sporet er for langt
@@ -62,16 +63,14 @@ def tegn(delta_tid):
 def main():
     print(f"\nVinduets størrelse er {BREDDE}x{HOEJDE}")
     kasse()
-    global startvinkel, starthastighed
-    startvinkel = 0
-    starthastighed = 0
+    global startvinkel_radianer, starthastighed
     valg_af_vinkel_faerdig = False
     while not valg_af_vinkel_faerdig:
         valg_vinkel = int(input("\nDu skal kaste en bold mod kassen, hvilken vinkel vil du kaste med? "))
         if valg_vinkel < 0 or valg_vinkel > 90:
             print("\nDu skal vælge en vinkel mellem 0 og 90 grader")
         elif valg_vinkel >= 0 and valg_vinkel <= 90:
-            startvinkel += valg_vinkel
+            startvinkel_radianer = ((2 * math.pi) / 360) * (valg_vinkel)
             valg_af_vinkel_faerdig = True
         else:
             print("\nDu har valgt noget, som programmet ikke kunne forstå, prøv igen")
@@ -84,7 +83,7 @@ def main():
         elif valg_hastighed == 0:
             print("\nDin hastighed skal være større end 0")
         elif valg_hastighed >= 0:
-            starthastighed += valg_hastighed
+            starthastighed = valg_hastighed
             valg_af_hastighed_faerdig = True
         else:
             print("\nDu har valgt noget, som programmet ikke kunne forstå, prøv igen")
